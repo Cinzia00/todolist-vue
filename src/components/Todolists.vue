@@ -4,10 +4,12 @@ import axios from 'axios';
 export default {
   data() {
     return {
-        todolists: []
+        todolists: [],
+        newTask: ""
     }
   },
   methods: {
+    //Faccio chiamata axios per reperire l'intera lista dei task
     fetchTodolists() {
         axios.get('http://127.0.0.1:8000/api/todolist').then(res => {
             console.log(res)
@@ -17,6 +19,22 @@ export default {
         .catch(err => {
             console.log(err)
         })
+    },
+
+    //Aggiungo un nuovo task 
+    AddTask() {
+        if(this.newTask != "") {
+            axios.post('http://127.0.0.1:8000/api/newtask', {
+                task: this.newTask
+            })
+            .then(function (response) {
+                 console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        }    
     }
   },
   mounted() {
@@ -36,11 +54,14 @@ export default {
             </div>
             <div class="content-list">
                 <div class="add-task">
-                    <input type="text">
+                    <input type="text" @keyup.enter="AddTask" v-model="newTask" placeholder="Aggiungi nuovo task">
                     <button>Aggiungi task</button>
                 </div>
                 
-                <p v-for="todolist in todolists">{{ todolist.task }}</p>
+                <p v-for="todolist in todolists">
+                    {{ todolist.task }}
+                </p>
+                <font-awesome-icon :icon="['fas', 'trash-can']" />
             </div>
         </div>
     </div>
@@ -80,6 +101,11 @@ export default {
                 color: rgb(16, 174, 209);
                 border: 1px solid rgb(16, 174, 209);
                 padding: 7px;
+            }
+
+            input {
+                border: 1px solid;
+                border-radius: 5px;
             }
 
             
