@@ -1,15 +1,11 @@
 <script>
-import Todolists from './components/todolists.vue' 
 
-export default {
-  components: {
-    Todolists
-  }
-}
+
+
 </script>
 
 <template>
-  <Todolists />
+  <RouterView></RouterView>
 </template>
 
 <style lang="scss">
