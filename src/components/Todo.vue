@@ -1,4 +1,6 @@
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -26,7 +28,16 @@ export default {
     },
     //aggiunge o toglie la classe check all'input
     setDone() {
-        this.isCheck = !this.isCheck
+        axios.post(`http://127.0.0.1:8000/api/setdone/${this.todo.id}`, {
+            done: !this.isCheck
+        })
+        .then(response => {
+            console.log('ok', response);
+            this.isCheck = !this.isCheck;
+        })
+        .catch(error => {
+            console.log('ko', error);
+        });
     }
   },
   props: {
@@ -45,7 +56,7 @@ export default {
         
         
         <label for="task"></label>
-        <div class="d-flex">
+        <div class="d-flex task-row">
             <div class="container-input">
                 <input required type="text" id="task" v-model="taskText" :disabled="!this.editable" :class="{ error: isError, check: isCheck }">
                 <small class="text-danger" v-if="taskText.length > 100">Max 100 caratteri</small>
@@ -106,5 +117,29 @@ input:disabled {
         width: auto;
         margin-left: 20px;
     }
+
+    @media screen and (min-width: 300px){
+        .task-row {
+            flex-wrap: wrap;
+            justify-content: left;
+
+            .container-button {
+                margin-left: 0;
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px){
+    .container-list {
+        .task-row {
+
+            .container-button {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+
 }
 </style>

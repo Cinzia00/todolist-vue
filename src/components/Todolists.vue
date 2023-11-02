@@ -89,7 +89,7 @@ export default {
             <div class="container-list my-5">
                 <form>
                     <label for="newTask"></label>
-                    <button id="newTask" class="btn btn-secondary my-3 me-2" @click="AddTask">Aggiungi task</button>
+                    <button id="newTask" class="btn btn-secondary add-btn my-3 me-2" @click="AddTask">Aggiungi task</button>
                     <input type="hidden" id="input-task" class="my-3" v-model="newTask"
                         placeholder="Aggiungi nuovo task">
                         <div>
@@ -109,7 +109,6 @@ export default {
 
 <style lang="scss">
 .container-list {
-    min-width: 1100px;
     min-height: 600px;
     border-radius: 30px;
     background: #2f363e;
@@ -145,5 +144,33 @@ export default {
 }
 
 
+@media screen and (min-width: 300px) {
+    .container-list {
+        width: 300px;
+    }
+}
+
+    
+@media screen and (min-width: 768px){
+    .container-list {
+        width: 500px;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            .add-btn  {
+                width: 150px;
+            }
+
+        }
+    }
+}
+
+@media screen and (min-width: 900px){
+    .container-list {
+        min-width: 800px;
+    }
+}
 
 </style>
