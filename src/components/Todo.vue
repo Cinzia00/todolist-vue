@@ -7,7 +7,7 @@ export default {
         editable: false,
         taskText: this.todo.task,
         isError: false,
-        isCheck: false
+        isCheck: this.todo.done
     }
   },
   methods: {
@@ -53,8 +53,6 @@ export default {
 <template>
 
     <form>
-        
-        
         <label for="task"></label>
         <div class="d-flex task-row">
             <div class="container-input">
